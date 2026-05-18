@@ -38,9 +38,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.rememberHiltViewModelFactory
+import androidx.lifecycle.defaultViewModelProviderFactory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.dropUnlessResumed
+import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
+import androidx.lifecycle.viewmodel.compose.rememberViewModelStoreProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.viewmodel.navigation3.ViewModelStoreNavEntryDecorator
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
@@ -57,7 +62,8 @@ data object RouteA
 
 data class RouteB(val id: String)
 
-class RouteBViewModel : ViewModel() {
+@HiltViewModel
+class RouteBViewModel @Inject constructor() : ViewModel() {
 
     init {
         Log.d("lf_viewModel", "init RouteBViewModel")
@@ -171,7 +177,6 @@ fun ColumnScope.Title(title: String) {
         text = title
     )
 }
-
 
 
 
